@@ -51,12 +51,5 @@ class GoodsOther(models.Model):
     goods = models.ForeignKey(Goods, on_delete=models.CASCADE, related_name='goods_other')
     other_tags = models.ManyToManyField(OtherTag, related_name='goods_other_tags')
 
-    def __str__(self):
-        return self.name
-
-
-class GoodsOther(models.Model):
-    goods = models.ForeignKey(Goods, on_delete=models.CASCADE, related_name='goods_other')
-    other_tags = models.ManyToManyField(OtherTag, related_name='goods_other_tags')
 
 
