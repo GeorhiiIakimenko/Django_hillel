@@ -15,9 +15,33 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
+from catalog.views import TagViewSet, GoodsViewSet, CategoryViewSet
+from rest_framework_swagger.views import get_swagger_view
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
+Router = routers.DefaultRouter()
+Router.register('tag', TagViewSet)
+Router.register('goods', GoodsViewSet)
+Router.register('category', CategoryViewSet)
+
+schema_view = get_swagger_view(title='Catalog API')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/', include(Router.urls)),
+    path('doc', schema_view),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
 ]
+
+
+
+

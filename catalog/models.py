@@ -17,6 +17,11 @@ class Category(models.Model):
     name = models.CharField("Name", max_length=30, unique=True)
     description = RichTextField('Description')
 
+    class Meta:
+        verbose_name = 'Категорія'
+        verbose_name_plural = 'Категоріі'
+        ordering = ('name',)
+
     def __str__(self):
         return self.name
 
